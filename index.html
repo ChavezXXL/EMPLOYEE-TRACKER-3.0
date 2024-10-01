@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Time Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include EmailJS SDK once -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("hyp.inc.20"); // Replace with your EmailJS user ID
+        })();
+    </script>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <a href="#" onclick="showDashboard()">Dashboard</a>
+            <a href="#" onclick="showEmployeeManagement()">Employee Management</a>
+            <a href="#" onclick="showPasswordModal()">Overview</a>
+            <a href="#" onclick="showSettings()">Settings</a>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div id="menuIcon" class="menu-icon" onclick="openNav()">
+                <div class="bar"></div>
+            </div>
+            <div id="dateTime" class="date-time">
+                <div id="currentDate" class="bold-text"></div>
+                <div id="currentTime" class="bold-text"></div>
+            </div>
+            <button id="addEmployeeButton" class="add-employee-button" style="display: none;">Add Employee</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Dashboard Content -->
+            <div id="dashboardContent">
+                <h2 class="bold-text">Employees</h2>
+                <ul id="employees" class="employee-list"></ul>
+            </div>
+
+            <!-- Employee Management Content -->
+            <div id="employeeManagementContent" style="display: none;">
+                <h2 class="bold-text">Employee Management</h2>
+                <ul id="employeeManagementList" class="employee-list"></ul>
+            </div>
+
+            <!-- Overview Content -->
+<div id="overviewContent" style="display: none;">
+<h2 class="bold-text">Overview</h2>
+<div class="filter-options">
+  <label for="employeeFilter">Employee:</label>
+  <select id="employeeFilter"></select>
+
+  <label for="timeFilter">Time Frame:</label>
+  <select id="timeFilter">
+    <option value="day">Day</option>
+    <option value="week">Week</option>
+  </select>
+
+  <label for="dateFilter">Date:</label>
+  <input type="date" id="dateFilter">
+  
+  <!-- Add the Print Report button here -->
+  <button id="overviewPrintButton" onclick="generatePayDaySheet()">Print Report</button>
+
+  <button id="prevWeekButton">&laquo; Previous Week</button>
+  <button id="nextWeekButton">Next Week &raquo;</button>
+  <button id="exportCSVButton">Export CSV</button>
+  <button id="emailButton">Email Report</button>
+</div>
+<div id="customCalendar" class="custom-calendar"></div>
+<div class="timesheet-container">
+  <table id="timesheetTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Employee Name</th>
+        <th>Role</th>
+        <th>Clock In</th>
+        <th>Start Break</th>
+        <th>End Break</th>
+        <th>Clock Out</th>
+        <th>Regular Hours</th>
+        <th>Overtime Hours</th>
+        <th>Break Hours</th>
+        <th>Total Pay</th>
+        <th>Attendance</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Timesheet data will be inserted here -->
+    </tbody>
+  </table>
+</div>
+</div>
+
+            <!-- Settings Content -->
+            <div id="settingsContent" style="display: none;">
+                <div class="settings-container">
+                    <h2>Settings</h2>
+                    <form id="settingsForm" class="settings-form">
+                        <h3 class="settings-section-title">Company Details</h3>
+                        <label for="companyName">Company Name:</label>
+                        <input type="text" id="companyName">
+
+                        <label for="companyAddress">Company Address:</label>
+                        <input type="text" id="companyAddress">
+
+                        <label for="companyLogo">Upload Company Logo:</label>
+                        <input type="file" id="companyLogo" accept="image/*">
+
+                        <h3 class="settings-section-title">Admin Settings</h3>
+                        <label for="adminPIN">Admin PIN:</label>
+                        <input type="password" id="adminPIN">
+
+                        <h3 class="settings-section-title">Business Hours</h3>
+                        <label for="businessStartTime">Business Start Time:</label>
+                        <input type="time" id="businessStartTime">
+
+                        <label for="businessEndTime">Business End Time:</label>
+                        <input type="time" id="businessEndTime">
+
+                        <h3 class="settings-section-title">Overtime & Breaks</h3>
+                        <label for="overtimeThreshold">Overtime Threshold (hours):</label>
+                        <input type="number" id="overtimeThreshold" min="0" step="0.1">
+
+                        <label for="overtimeMultiplier">Overtime Multiplier:</label>
+                        <input type="number" id="overtimeMultiplier" min="0" step="0.1">
+
+                        <label for="minimumBreakDuration">Minimum Break Duration (minutes):</label>
+                        <input type="number" id="minimumBreakDuration" min="0">
+
+                        <label for="maximumBreakDuration">Maximum Break Duration (minutes):</label>
+                        <input type="number" id="maximumBreakDuration" min="0">
+
+                        <h3 class="settings-section-title">Other Settings</h3>
+                        <label for="timeZone">Time Zone:</label>
+                        <input type="text" id="timeZone">
+
+                        <label for="payrollFrequency">Payroll Frequency:</label>
+                        <select id="payrollFrequency">
+                            <option value="weekly">Weekly</option>
+                            <option value="bi-weekly">Bi-Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+
+                        <label for="enableNotifications">Enable Notifications:</label>
+                        <input type="checkbox" id="enableNotifications">
+
+                        <label for="notificationEmail">Notification Email:</label>
+                        <input type="email" id="notificationEmail">
+
+                        <label for="exportFormat">Export Format:</label>
+                        <select id="exportFormat">
+                            <option value="csv">CSV</option>
+                            <option value="excel">Excel</option>
+                        </select>
+
+                        <label for="language">Language:</label>
+                        <input type="text" id="language">
+
+                        <div class="settings-buttons">
+                            <button type="button" id="saveSettingsButton">Save Settings</button>
+                            <button type="button" id="resetSettingsButton">Reset Settings</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clock In Modal -->
+    <div id="clockInModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close">&times;</span>
+            <h2 id="employeeNameModal" class="modal-employee-name"></h2>
+            <div id="clockCircle" class="clock-circle">
+                <span id="clockInText">Clock In</span>
+            </div>
+            <button id="breakButton" class="break-button" style="display: none;">Start Break</button>
+            <div id="timer" class="clock-time">00:00:00</div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close">&times;</span>
+            <h2>Enter PIN to Access Overview</h2>
+            <input type="password" id="passwordInput" placeholder="Enter PIN">
+            <button id="submitPassword">Submit</button>
+        </div>
+    </div>
+
+    <!-- Edit Employee Modal -->
+    <div id="editEmployeeModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close">&times;</span>
+            <h2>Edit Employee</h2>
+            <label for="editEmployeeId">ID</label>
+            <input type="text" id="editEmployeeId" readonly>
+            <label for="editEmployeeName">Name</label>
+            <input type="text" id="editEmployeeName">
+            <label for="editEmployeeRole">Role</label>
+            <input type="text" id="editEmployeeRole">
+            <label for="editEmployeePayRate">Pay Rate</label>
+            <input type="number" id="editEmployeePayRate">
+            <button id="saveEmployeeChanges">Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Add Employee Modal -->
+    <div id="addEmployeeModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close">&times;</span>
+            <h2>Add Employee</h2>
+            <label for="addEmployeeName">Name</label>
+            <input type="text" id="addEmployeeName">
+            <label for="addEmployeeId">ID</label>
+            <input type="text" id="addEmployeeId">
+            <label for="addEmployeeRole">Role</label>
+            <input type="text" id="addEmployeeRole">
+            <label for="addEmployeePayRate">Pay Rate</label>
+            <input type="number" id="addEmployeePayRate">
+            <button id="addEmployeeSubmit">Add Employee</button>
+        </div>
+    </div>
+
+    <!-- Edit Timesheet Modal -->
+    <div id="editTimesheetModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close">&times;</span>
+            <h2>Edit Timesheet</h2>
+            <label for="editStartTime">Clock In Time</label>
+            <input type="time" id="editStartTime">
+            <label for="editBreakStartTime">Break Start Time</label>
+            <input type="time" id="editBreakStartTime">
+            <label for="editBreakEndTime">Break End Time</label>
+            <input type="time" id="editBreakEndTime">
+            <label for="editEndTime">Clock Out Time</label>
+            <input type="time" id="editEndTime">
+            <button id="saveTimesheetChanges">Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Detailed View Modal -->
+    <div id="detailedViewModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close" onclick="closeDetailedViewModal()">&times;</span>
+            <h2>Employee Details</h2>
+            <div id="detailedViewEmployeeName" class="employee-name">Employee Name</div>
+            <div id="detailedViewEmployeeRole" class="employee-role">Role</div>
+            <div id="detailedViewTotalHours" class="total-hours">Total Hours: 0.00</div>
+            <div id="detailedViewTotalPay" class="total-pay">Total Pay: $0.00</div>
+            <h3>Days Worked:</h3>
+            <ul id="detailedViewDaysWorked" class="days-worked">
+                <!-- Days worked entries will go here -->
+            </ul>
+            <button id="payDayButton" class="payday-button" onclick="generatePayDaySheet()">Print Pay Report</button>
+        </div>
+    </div>
+
+    <!-- Email Modal -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close">&times;</span>
+            <h2>Email Weekly Timesheet</h2>
+            <label for="emailAddress">Enter Email Address:</label>
+            <input type="email" id="emailAddress" placeholder="you@example.com">
+            <button id="sendEmailButton">Send Email</button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close" onclick="closeErrorModal()">&times;</span>
+            <h2>Error</h2>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content centered-modal">
+            <span class="close" onclick="closeReportModal()">&times;</span>
+            <h2>Pay Stub</h2>
+            <table id="paydayReportTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Employee Name</th>
+                        <th>Attendance</th>
+                        <th>Regular Hours</th>
+                        <th>Overtime Hours</th>
+                        <th>Total Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Pay report rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>

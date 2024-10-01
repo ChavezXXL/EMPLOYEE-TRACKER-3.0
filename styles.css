@@ -1,0 +1,871 @@
+/* Global Styles */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #e74c3c;
+  --accent-color: #f39c12;
+  --light-text-color: #ffffff;
+  --text-color: #333333;
+  --background-color: #f5f5f5;
+  --border-radius: 5px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s, color 0.3s;
+  padding: 12px 20px; /* Increased padding for touch-friendly buttons */
+  font-size: 1.1em; /* Increased font size for better readability */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+}
+
+button:hover {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced hover effect */
+}
+
+/* Header */
+.header {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header .menu-icon {
+  cursor: pointer;
+}
+
+.header .menu-icon .bar {
+  width: 30px;
+  height: 3px;
+  background-color: var(--light-text-color);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.header .date-time {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.header .date-time .bold-text {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.header .add-employee-button {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+}
+
+.header .add-employee-button:hover {
+  background-color: #d96b34;
+}
+
+/* Navigation Menu */
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  font-size: 40px;
+  color: var(--light-text-color);
+  cursor: pointer;
+}
+
+.overlay .overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+}
+
+.overlay .overlay-content a {
+  padding: 15px;
+  text-decoration: none;
+  font-size: 1.5em;
+  color: var(--light-text-color);
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay .overlay-content a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Main Content */
+.content {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2.bold-text {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+h3 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Employee List Styles */
+.employee-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.employee-list li {
+  background-color: #fff;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  border: 2px solid #ccc;
+}
+
+.employee-list li:hover {
+  background-color: #f0f0f0;
+  border-color: var(--accent-color);
+}
+
+.employee-list li span {
+  flex-grow: 1;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.employee-list li button {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px 20px; /* Increased button size for better usability */
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+.employee-list li button:hover {
+  background-color: #d96b34;
+}
+
+/* Employee Actions */
+.employee-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.employee-actions button {
+  flex: 1 1 auto;
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 10px;
+  font-size: 1em;
+  text-align: center;
+}
+
+.employee-actions button:hover {
+  background-color: #d96b34;
+}
+
+.employee-actions .delete-button {
+  background-color: var(--secondary-color);
+}
+
+.employee-actions .delete-button:hover {
+  background-color: #d14243;
+}
+
+/* Filter Options (Modernized for iPhone-like appearance) */
+.filter-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.filter-options label {
+  font-weight: 500;
+  font-size: 1.1em; /* Larger label font for readability */
+}
+
+.filter-options select,
+.filter-options input[type="date"] {
+  padding: 12px 16px; /* Increased padding for a more modern feel */
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1.1em; /* More readable input text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a clean look */
+  background-color: #fff;
+}
+
+.filter-options button {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px 20px; /* Larger button size */
+  font-size: 1.1em;
+  border-radius: var(--border-radius);
+}
+
+.filter-options button:hover {
+  background-color: #d96b34;
+}
+
+/* Custom Calendar (Modernized and expanded) */
+.custom-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Grid layout for more spacing */
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.custom-calendar .day {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: 15px 10px; /* Larger padding for better interaction */
+  font-size: 1.2em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.custom-calendar .day:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+.custom-calendar .day.active {
+  background-color: var(--accent-color);
+  color: #fff;
+  font-weight: bold;
+}
+
+.custom-calendar .day .date {
+  font-size: 1.5em; /* Increased size for better readability */
+}
+
+.custom-calendar .day .dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  margin: 5px auto 0;
+}
+
+/* Timesheet Table */
+.timesheet-container {
+  overflow-x: auto;
+}
+
+#timesheetTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+#timesheetTable th,
+#timesheetTable td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9em;
+  border-right: 1px solid #ddd;
+}
+
+#timesheetTable th {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  font-weight: 500;
+}
+
+#timesheetTable td:last-child,
+#timesheetTable th:last-child {
+  border-right: none;
+}
+
+#timesheetTable td {
+  border-bottom: 1px solid #ccc;
+}
+
+#timesheetTable tr:hover {
+  background-color: #f9f9f9;
+}
+
+#timesheetTable td button {
+  background-color: var(--secondary-color);
+  color: var(--light-text-color);
+  padding: 6px 10px;
+  font-size: 0.8em;
+  margin: 2px;
+}
+
+#timesheetTable td button:hover {
+  background-color: #d14243;
+}
+
+/* Action Buttons in Timesheet */
+.attendance-button {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 6px 10px;
+  margin: 2px;
+  font-size: 0.8em;
+}
+
+.attendance-button:hover {
+  background-color: #d96b34;
+}
+
+/* Editable Cells */
+.editable {
+  cursor: pointer;
+  background-color: #fdfdfd;
+}
+
+.editable:hover {
+  background-color: #f0f0f0;
+}
+
+/* Print, Email, and Export Buttons */
+#printButton,
+#emailButton,
+#exportCSVButton {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px 24px;
+  font-weight: 500;
+  font-size: 1em;
+  margin: 10px auto;
+  display: block;
+  max-width: 200px;
+  text-align: center;
+}
+
+#printButton:hover,
+#emailButton:hover,
+#exportCSVButton:hover {
+  background-color: #d96b34;
+}
+
+/* Modals */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1002;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  margin: auto;
+}
+
+.centered-modal {
+  top: auto;
+  transform: none;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  text-align: center;
+  font-weight: 600;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.modal-content button {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px;
+  font-size: 1em;
+  width: 100%;
+  font-weight: 500;
+}
+
+.modal-content button:hover {
+  background-color: #d96b34;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--secondary-color);
+}
+
+/* Clock Circle */
+.clock-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--light-text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clock-circle.red {
+  background-color: var(--secondary-color);
+}
+
+.clock-circle:hover {
+  background-color: #3a506b;
+}
+
+.clock-circle span {
+  font-size: 2em;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Clock Time */
+.clock-time-container {
+  text-align: center;
+}
+
+.modal-employee-name {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.clock-time {
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+/* Break Button */
+.break-button {
+  background-color: var(--secondary-color);
+  color: var(--light-text-color);
+  padding: 15px;
+  font-size: 1.2em;
+  width: 80%;
+  margin: 10px auto 0;
+  display: block;
+  font-weight: 600;
+}
+
+.break-button:hover {
+  background-color: #d14243;
+}
+
+/* Settings Form */
+.settings-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.settings-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.settings-form input,
+.settings-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+#saveSettingsButton {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px;
+  font-size: 1em;
+  width: 100%;
+  font-weight: 500;
+}
+
+#saveSettingsButton:hover {
+  background-color: #d96b34;
+}
+
+/* Detailed View Modal */
+.employee-name {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.employee-role {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.total-hours,
+.total-pay {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.days-worked {
+  list-style: none;
+  padding: 0;
+}
+
+.days-worked li {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+}
+
+.payday-button {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px;
+  font-size: 1em;
+  width: 100%;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.payday-button:hover {
+  background-color: #d96b34;
+}
+
+/* Error Modal */
+#errorModal .modal-content {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+#errorModal h2 {
+  color: #721c24;
+}
+
+#errorMessage {
+  color: #721c24;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .content {
+      padding: 20px;
+  }
+
+  .employee-list li {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .employee-list li span {
+      margin-bottom: 10px;
+      text-align: center;
+  }
+
+  .employee-actions {
+      flex-direction: column;
+  }
+
+  .filter-options {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .filter-options label,
+  .filter-options select,
+  .filter-options input,
+  .filter-options button {
+      margin-bottom: 10px;
+      width: 100%;
+  }
+
+  .modal-content {
+      width: 95%;
+  }
+
+  .clock-circle {
+      width: 250px;
+      height: 250px;
+  }
+
+  .clock-time {
+      font-size: 2em;
+  }
+
+  #timesheetTable th,
+  #timesheetTable td {
+      padding: 8px;
+      font-size: 0.8em;
+  }
+
+  .attendance-button {
+      padding: 4px 8px;
+      font-size: 0.7em;
+  }
+}
+/* Settings Page Section */
+.settings-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+/* Settings Title */
+.settings-container h2 {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 1.8em; /* Larger, prominent heading */
+  font-weight: 600;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ddd; /* Subtle bottom border for clarity */
+  padding-bottom: 10px;
+}
+
+/* Section Titles */
+.settings-section-title {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 20px 0 15px 0;
+  color: var(--primary-color);
+}
+
+/* Settings Form */
+.settings-form {
+  margin-bottom: 30px;
+}
+
+.settings-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 1.1em; /* Slightly larger labels */
+}
+
+.settings-form input,
+.settings-form select,
+.settings-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  font-size: 1.1em;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow on inputs */
+}
+
+.settings-form input:focus,
+.settings-form select:focus,
+.settings-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-color); /* Highlight on focus */
+  box-shadow: 0 0 4px rgba(243, 156, 18, 0.3);
+}
+
+/* Settings Buttons */
+.settings-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#saveSettingsButton,
+#resetSettingsButton {
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 1.1em;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#saveSettingsButton {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+}
+
+#saveSettingsButton:hover {
+  background-color: #d96b34;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+#resetSettingsButton {
+  background-color: #ccc;
+  color: #333;
+}
+
+#resetSettingsButton:hover {
+  background-color: #999;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+#reportContent {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 700px; /* Slightly wider for the report */
+}
+#overviewPrintButton {
+  background-color: var(--accent-color);
+  color: var(--light-text-color);
+  padding: 12px 24px;
+  font-weight: 500;
+  font-size: 1em;
+  margin: 10px;
+  display: inline-block;
+  border-radius: var(--border-radius);
+}
+
+#overviewPrintButton:hover {
+  background-color: #d96b34;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.modal-content .close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.report-modal table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.report-modal th, .report-modal td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.report-modal th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
