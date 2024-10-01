@@ -33,13 +33,13 @@ button {
   cursor: pointer;
   border-radius: var(--border-radius);
   transition: background-color 0.3s, color 0.3s;
-  padding: 12px 20px; /* Increased padding for touch-friendly buttons */
-  font-size: 1.1em; /* Increased font size for better readability */
+  padding: 14px 22px; /* Increased padding for touch-friendly buttons */
+  font-size: 1.2em; /* Increased font size for better readability */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
 
 button:hover {
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced hover effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced hover effect */
 }
 
 /* Header */
@@ -164,6 +164,7 @@ h3 {
   transition: background-color 0.3s, border-color 0.3s;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: 2px solid #ccc;
 }
 
@@ -177,7 +178,12 @@ h3 {
   font-size: 1.5em;
   font-weight: 600;
   color: var(--primary-color);
-  text-align: center;
+}
+
+.employee-list li .employee-id {
+  font-size: 1em;
+  color: #777;
+  margin-left: 10px;
 }
 
 .employee-list li button {
@@ -658,6 +664,11 @@ h3 {
       text-align: center;
   }
 
+  .employee-list li .employee-id {
+      margin-bottom: 10px;
+      text-align: center;
+  }
+
   .employee-actions {
       flex-direction: column;
   }
@@ -699,6 +710,42 @@ h3 {
       font-size: 0.7em;
   }
 }
+
+@media (max-width: 480px) {
+  .header {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .content {
+      padding: 15px;
+  }
+
+  .employee-list li {
+      padding: 10px;
+      margin-bottom: 8px;
+  }
+
+  .employee-list li span {
+      font-size: 1.1em;
+  }
+
+  .employee-list li .employee-id {
+      font-size: 1em;
+  }
+
+  /* Increase spacing between buttons */
+  .overview-buttons {
+      gap: 20px;
+  }
+
+  /* Button size adjustments for very small screens */
+  .overview-buttons button {
+      padding: 12px;
+      font-size: 1em;
+  }
+}
+
 /* Settings Page Section */
 .settings-container {
   max-width: 600px;
@@ -800,6 +847,7 @@ h3 {
   background-color: #999;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
+
 #reportContent {
   max-height: 60vh;
   overflow-y: auto;
